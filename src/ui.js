@@ -17,9 +17,15 @@ class UI {
                 <div class="card-body">
                 <h4 class="card-title">${post.title}</h3>
                     <p class="card-text">${post.content}</p>
-                    <a href="# class="edit card-link"></a>
+                    <a href="# class="edit card-link" data-id="${post.id}">
+                    <i class="material-icons">edit</i>
+                    </a>
+
+                    <a href="# class="delete card-link" data-id="${post.id}">
+                    <i class="material-icons">remove</i>
+                    </a>
                 </div>
-            </div>`
+            </div>`;
         })
         this.post.innerHTML = output
     }
