@@ -22,7 +22,7 @@ class UI {
                     </a>
 
                     <a href="# class="delete card-link" data-id="${post.id}">
-                    <i class="material-icons">remove</i>
+                    <i class="delete material-icons">remove</i>
                     </a>
                 </div>
             </div>`;
