@@ -14,6 +14,21 @@
       "id": 3,
       "title": "Post 3",
       "content": "Content 3"
+    },
+    {
+      "title": "sadas",
+      "content": "asdasd",
+      "id": 4
+    },
+    {
+      "title": "a new post",
+      "content": "a new post",
+      "id": 5
+    },
+    {
+      "title": "asdasd",
+      "content": "asdas",
+      "id": 6
     }
   ]
 }
