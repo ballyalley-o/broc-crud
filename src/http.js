@@ -43,7 +43,7 @@ class EasyHTTP {
         }
     });
 
-    const resData = await "Content Deleted...";
+    const resData = "Content Deleted...";
     return resData;
   }
 }

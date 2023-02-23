@@ -11,18 +11,21 @@ class UI {
     showPosts(posts) {
         let output = '';
 
+
         posts.forEach((post) => {
             output += `
-            <div class="card mb-3">
+            <div class="card-child mb-3">
                 <div class="card-body">
-                <h4 class="card-title">${post.title}</h3>
-                    <p class="card-text">${post.content}</p>
+                <span class="icon-container">
                     <a href="# class="edit card-link" data-id="${post.id}">
-                    <i class="material-icons">edit</i>
-                    </a>
-
-                    <a href="# class="delete card-link" data-id="${post.id}">
-                    <i class="delete material-icons">remove</i>
+                        <i class="edit material-icons">edit</i>
+                        </a>
+                            <a href="# class="delete card-link" data-id="${post.id}">
+                                <i class="material-icons">remove</i>
+                            </a>
+                            </span>
+                         <h3 class="card-title">${post.title}</h3>
+                         <p class="card-text">${post.content}</p>
                     </a>
                 </div>
             </div>`;
