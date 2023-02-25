@@ -15,8 +15,16 @@ askBtn.addEventListener("click", () => {
         ui.modal("Please fill in all empty fields", "red", "white");
         return;
     }
-    addPost();
+    addPost()
 });
+
+//listen for cancel
+const cancelBtn = document.querySelector(".card-form")
+cancelBtn.addEventListener("click", cancelEditeState);
+
+//listen for edit state
+document.querySelector("#posts").addEventListener("click", toggleEdit);
+
 
 //Method GET
 function getPosts() {
@@ -26,9 +34,10 @@ function getPosts() {
       .catch((err) => console.log(err));
 }
 
-//Method DELETE
+//Method DELETExw
 function deletePost(e) {
     e.preventDefault();
+    const titleTarget = e.target.parentElement.parentElement.nextElementSibling.textContent;
 
     if (e.target.parentElement.classList.contains("delete")) {
     const id = e.target.parentElement.dataset.id;
@@ -38,7 +47,7 @@ function deletePost(e) {
           .delete(`http://localhost:3001/posts/${id}`)
           .then(data => {
             ui.modal("Post Deleted", "red", "white");
-            console.log(data);
+            console.log(`Post "${titleTarget}" deleted`);
             getPosts();
           })
           .catch((err) => console.log(err));
@@ -46,22 +55,70 @@ function deletePost(e) {
   }
 }
 
+//Method PUT
+function toggleEdit(e) {
+    if (e.target.parentElement.classList.contains("edit")) {
+
+    const id = e.target.parentElement.dataset.id;
+    const header = e.target.parentElement.parentElement.nextElementSibling.textContent;
+
+    const content = e.target.parentElement.parentElement.nextElementSibling
+        .nextElementSibling.textContent;
+
+    const data = {
+        id,
+        header,
+        content
+    }
+    //fill form with current post
+    ui.fillForm(data);
+    }
+  e.preventDefault();
+}
+
+//cancel edit state
+function cancelEditeState(e) {
+  if (e.target.classList.contains("post-cancel")) {
+    ui.changeFormState("add");
+  }
+  e.preventDefault();
+}
+
 //add post
 function addPost() {
   let title = document.querySelector("#title").value;
   let content = document.querySelector("#desc").value;
+  let id = document.querySelector("#id").value;
 
     const data = {
         title,
         content
     }
-    http
-        .post('http://localhost:3001/posts', data)
-        .then(data => {
-            ui.modal("Post Added", "green", "white")
+
+    if (id === "") {
+        //create post
+        http.post("http://localhost:3001/posts", data)
+          .then(data => {
+            ui.modal("Post Added", "green", "white");
+            setTimeout(() => {
+              location.reload();
+            }, 1000);
             ui.clearFields();
-            ui.clearOldestPost();
             getPosts();
-        })
-        .catch(err => console.log(err));
+          })
+          .catch((err) => console.log(err));
+    }
+    else {
+        http.put(`http://localhost:3001/posts/${id}`, data)
+          .then(data => {
+            ui.modal("Post Updated", "#708AF0", "white");
+            setTimeout(() => {
+              location.reload();
+            }, 1000);
+            ui.changeFormState("add");
+            getPosts();
+          })
+          .catch((err) => console.log(err));
+    }
+
 }
